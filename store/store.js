@@ -1,23 +1,27 @@
 import client from '../plugins/contentful'
 
 export const state = () => ({
-  stores: []
+  currentPost: {},
+  isLoading: true
 })
 
 export const mutations = {
-  setStores(state, payload) {
-    state.stores = payload
+  setCurrentPost(state, payload) {
+    state.currentPost = payload
+  },
+  setLoading(state, payload) {
+    state.isLoading = payload
   }
 }
 
 export const actions = {
-  async getStores({ commit }) {
+  async getStoreByURL({ commit }, url) {
+    commit('setLoading', true)
     const response = await client.getEntries({
-      content_type: 'store'
+      content_type: 'store',
+      'fields.url': url
     })
-    console.log('response', response)
-    if (response.items.length > 0) {
-      commit('setStores', response.items)
-    }
+    commit('setCurrentPost', response.items[0])
+    commit('setLoading', false)
   }
 }

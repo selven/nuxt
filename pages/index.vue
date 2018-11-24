@@ -6,8 +6,7 @@
         <li
           v-for="(store, index) in stores" 
           :key="index">
-          {{ store.fields.name }}
-          <!-- <nuxt-link :to="store.fields.slug" /> -->
+          <nuxt-link :to="store.fields.url">{{ store.fields.name }}</nuxt-link>
         </li>
       </ul>
     </div>
@@ -18,11 +17,11 @@
 export default {
   computed: {
     stores() {
-      return this.$store.state.store.stores
+      return this.$store.state.stores.stores
     }
   },
   async fetch({ store, params }) {
-    await store.dispatch('store/getStores', params.name)
+    await store.dispatch('stores/getStores', params.url)
   }
 }
 </script>

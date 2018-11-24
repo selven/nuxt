@@ -1,4 +1,6 @@
+require('dotenv').config()
 const pkg = require('./package')
+const contentful = require('contentful')
 
 module.exports = {
   mode: 'universal',
@@ -70,6 +72,26 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    }
+  },
+
+  generate: {
+    routes: () => {
+      const client = contentful.createClient({
+        space:  process.env.CTF_SPACE_ID,
+        accessToken: process.env.CTF_CD_ACCESS_TOKEN
+      });
+
+      return client.getEntries({
+        content_type: 'store'
+      }).then((response) => {
+        return response.items.map(entry => {
+          return {
+            route: entry.fields.url,
+            payload: entry
+          };
+        });
+      });
     }
   }
 }
