@@ -3,7 +3,7 @@
     <div
       v-if="!isLoading"
       class="single-post__article">
-      <!-- <h1 class="single-post__title">{{ currentCategory.fields.name }}</h1> -->
+      <h1 class="single-post__title">{{ currentCategory.fields.name }}</h1>
       <div class="single-post__content">
         {{ currentCategory }}
         <br>
@@ -32,7 +32,7 @@ export default {
     }
   },
   async fetch({ store, params }) {
-    // await store.dispatch('category/getCategoryByURL', params._category)
+    await store.dispatch('category/getCategoryByURL', params._category)
     await store.dispatch('category/getStoresByCategory')
   }
 }

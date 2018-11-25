@@ -29,10 +29,12 @@ export const actions = {
     commit('setLoading', false)
   },
 
-  async getStoresByCategory({ commit, state }) {
+  async getStoresByCategory({ commit, state }, id) {
     commit('setLoading', true)
-    const response = await client.getEntry('4RKpXXxhCMyKI6q8y2QEU8')
-    console.log('response', response)
+    const response = await client.getEntries({
+      content_type: 'store',
+      'fields.categories.sys.id': state.currentCategory.sys.id
+    })
     commit('setStores', response)
     commit('setLoading', false)
   }

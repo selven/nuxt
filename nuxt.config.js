@@ -76,13 +76,13 @@ module.exports = {
   },
 
   generate: {
-    routes: () => {
+    routes: async() => {
       const client = contentful.createClient({
         space:  process.env.CTF_SPACE_ID,
         accessToken: process.env.CTF_CD_ACCESS_TOKEN
       });
 
-      return client.getEntries({
+      const stores = await client.getEntries({
         content_type: 'store'
       }).then((response) => {
         return response.items.map(entry => {
@@ -92,6 +92,19 @@ module.exports = {
           };
         });
       });
+
+      const categories = await client.getEntries({
+        content_type: 'categories'
+      }).then((response) => {
+        return response.items.map(entry => {
+          return {
+            route: 'category/' + entry.fields.url,
+            payload: entry
+          };
+        });
+      });
+
+      return [...stores, ...categories]
     }
   }
 }
