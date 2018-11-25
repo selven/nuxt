@@ -21,7 +21,7 @@ export default {
     }
   },
   async fetch({ store, params }) {
-    await store.dispatch('stores/getStores')
+    await store.dispatch('stores/getStores', params.url)
   }
 }
 </script>

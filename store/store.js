@@ -16,6 +16,7 @@ export const mutations = {
 
 export const actions = {
   async getStoreByURL({ commit }, url) {
+    console.log('url', url)
     commit('setLoading', true)
     const response = await client.getEntries({
       content_type: 'store',

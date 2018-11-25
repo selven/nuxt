@@ -5,7 +5,8 @@
       class="single-post__article">
       <h1 class="single-post__title">{{ currentPost.fields.name }}</h1>
       <div class="single-post__content">
-        Hi
+        {{ currentPost.fields.testImage.fields }}
+        <img :src="currentPost.fields.testImage.fields.file.url">
       </div>
     </div>
     <p
@@ -27,7 +28,8 @@ export default {
     }
   },
   async fetch({ store, params }) {
-    await store.dispatch('store/getStoreByURL', params.url)
+    console.log('params', params)
+    await store.dispatch('store/getStoreByURL', params._store)
   }
 }
 </script>
