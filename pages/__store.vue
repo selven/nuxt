@@ -5,7 +5,9 @@
       class="single-post__article">
       <h1 class="single-post__title">{{ currentPost.fields.name }}</h1>
       <div class="single-post__content">
-        <img :src="resizeImage(currentPost.fields.testImage.fields.file.url)">
+        <img
+          v-if="currentPost.fields.testImage"
+          :src="resizeImage(currentPost.fields.testImage.fields.file.url)">
       </div>
     </div>
     <p
