@@ -1,13 +1,13 @@
 import client from '../plugins/contentful'
 
 export const state = () => ({
-  currentPost: {},
+  currentStore: {},
   isLoading: true
 })
 
 export const mutations = {
-  setCurrentPost(state, payload) {
-    state.currentPost = payload
+  setCurrentStore(state, payload) {
+    state.currentStore = payload
   },
   setLoading(state, payload) {
     state.isLoading = payload
@@ -21,7 +21,7 @@ export const actions = {
       content_type: 'store',
       'fields.url': url
     })
-    commit('setCurrentPost', response.items[0])
+    commit('setCurrentStore', response.items[0])
     commit('setLoading', false)
   }
 }

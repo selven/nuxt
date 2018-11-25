@@ -3,11 +3,20 @@
     <div
       v-if="!isLoading"
       class="single-post__article">
-      <h1 class="single-post__title">{{ currentPost.fields.name }}</h1>
+      <h1 class="single-post__title">{{ currentStore.fields.name }}</h1>
       <div class="single-post__content">
+        <ul
+          v-if="currentStore.fields.categories"
+          class="single-post__categories">
+          <li
+            v-for="(category, index) in currentStore.fields.categories" 
+            :key="index">
+            <nuxt-link :to="'category/' + category.fields.url">{{ category.fields.name }}</nuxt-link>
+          </li>
+        </ul>
         <img
-          v-if="currentPost.fields.testImage"
-          :src="resizeImage(currentPost.fields.testImage.fields.file.url)">
+          v-if="currentStore.fields.testImage"
+          :src="resizeImage(currentStore.fields.testImage.fields.file.url)">
       </div>
     </div>
     <p
@@ -21,8 +30,8 @@
 <script>
 export default {
   computed: {
-    currentPost() {
-      return this.$store.state.store.currentPost
+    currentStore() {
+      return this.$store.state.store.currentStore
     },
     isLoading() {
       return this.$store.state.store.isLoading
